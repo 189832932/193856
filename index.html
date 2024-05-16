@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수도 맞추기 게임</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #d8f3ff; /* 흐린 하늘색 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #game-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 400px;
+    }
+    h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    #country {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #666;
+    }
+    #capital-input {
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #result {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div id="game-container">
+    <h1>수도 맞추기 게임</h1>
+    <p id="country"></p>
+    <input type="text" id="capital-input" placeholder="수도를 입력하세요">
+    <button onclick="checkCapital()">확인</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    const countries = [
+        { country: "대한민국", capital: "서울" },
+        { country: "루마니아", capital: "부쿠레슈티" },
+        { country: "불가리아", capital: "소피아" },
+        { country: "그리스", capital: "아테네" },
+        { country: "아르헨티나", capital: "부에노스아이레스" },
+        { country: "캐나다", capital: "오타와" },
+        { country: "조선민주주의인민공화국", capital: "평양" },
+        { country: "베트남", capital: "하노이" },
+        { country: "이탈리아", capital: "로마" },
+        { country: "라트비아", capital: "리가" },
+        { country: "리투아니아", capital: "빌니우스" },
+        { country: "벨라루스", capital: "미스크" },
+        { country: "우크라이나", capital: "키예프" },
+        { country: "몰도바", capital: "키시네프" },
+        { country: "콩고", capital: "킨샤사" },
+        { country: "알제리", capital: "알제" },
+        { country: "모로코", capital: "라바트" },
+        { country: "리비아", capital: "트리폴리" },
+        { country: "니제르", capital: "니아메" }
+        // 필요한 만큼 추가 가능
+    ];
+
+    function getRandomCountry() {
+        return countries[Math.floor(Math.random() * countries.length)];
+    }
+
+    let currentCountry = getRandomCountry();
+
+    function displayNewCountry() {
+        document.getElementById("country").innerText = currentCountry.country;
+    }
+
+    function checkCapital() {
+        const userCapital = document.getElementById("capital-input").value.trim();
+        if (userCapital.toLowerCase() === currentCountry.capital.toLowerCase()) {
+            document.getElementById("result").innerText = "정답입니다! 축하합니다.";
+        } else {
+            document.getElementById("result").innerText = `틀렸습니다. 정답은 ${currentCountry.capital} 입니다.`;
+        }
+        // 새로운 문제 준비
+        currentCountry = getRandomCountry();
+        displayNewCountry();
+        document.getElementById("capital-input").value = "";
+    }
+
+    // 페이지 로드시 초기 문제 표시
+    window.onload = function() {
+        displayNewCountry();
+    };
+</script>
+</body>
+</html>
